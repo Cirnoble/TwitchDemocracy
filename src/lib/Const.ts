@@ -1,4 +1,4 @@
-export const REDIRECT_URL = 'http://localhost:5173'
+export const REDIRECT_URL =import.meta.env.DEV ? 'http://localhost:5173': 'https://cirnoble.github.io/TwitchDemocracy/' 
 export const CLIENT_ID = 'sgh0sog8v4dj5ncuodip6ib6zadjmh'
 
 export const BASE_URL = ''
