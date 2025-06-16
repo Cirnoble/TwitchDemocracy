@@ -1,23 +1,28 @@
 <script setup lang="ts">
+import { ref, onMounted } from 'vue';
 import HelloWorld from './components/HelloWorld.vue'
 import TheWelcome from './components/TheWelcome.vue'
+import AccountInfo from './components/AccountInfo.vue'
+import Chat from './components/Chat.vue';
+import {useTwitchAuth} from '@/stores/TwitchAuth.ts'
+
+onMounted(()=>{
+  useTwitchAuth().tryReadRedirect()
+})
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
-  <main>
-    <TheWelcome />
+  <main >
+    <AccountInfo></AccountInfo>
+    <Chat></Chat>
   </main>
 </template>
 
 <style scoped>
+main{
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr auto;
+}
 header {
   line-height: 1.5;
 }
