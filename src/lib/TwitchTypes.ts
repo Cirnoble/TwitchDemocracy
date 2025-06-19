@@ -111,5 +111,6 @@ export interface TwitchEventSubNotification{
 export interface ChatMessage{
   message_id: string,
   user_id: string,
+  user_name:string
   text: string
 }

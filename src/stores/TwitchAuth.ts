@@ -8,12 +8,12 @@ import { useChat } from "./Chat";
 
 export const useTwitchAuth = defineStore('twitch-auth',()=>{
     
-    const accessKey = ref<string|undefined>(undefined)
+    const accessToken = ref<string|undefined>(undefined)
     const user = ref<TwitchUser|undefined>(undefined)
     const isLoading = ref(false)
 
-    function getAccessKey(){
-        return accessKey.value
+    function getAccessToken(){
+        return accessToken.value
     }
 
     function getUser(){
@@ -21,11 +21,11 @@ export const useTwitchAuth = defineStore('twitch-auth',()=>{
     }
     
     function isAuthenticated(){
-        return !(accessKey.value == undefined && user.value == undefined)
+        return !(accessToken.value == undefined && user.value == undefined)
     }   
 
     function logout(){
-        accessKey.value = undefined
+        accessToken.value = undefined
         user.value = undefined
     }
 
@@ -56,13 +56,11 @@ export const useTwitchAuth = defineStore('twitch-auth',()=>{
         if(hash.includes('access_token')){
             isLoading.value = true
             const token = getValueFromHash(hash,'access_token')
-            accessKey.value = token
+            accessToken.value = token
+            axios.defaults.headers.common['Authorization'] =`Bearer ${token}`
+            //axios.defaults.headers.common['Client-Id'] = CLIENT_ID
 
-            const response = await axios.get<TwitchValidationResponse>(TWITCH_VALIDATION_URL,{
-                headers:{
-                    Authorization: `OAuth ${token}`
-                }
-            })
+            const response = await axios.get<TwitchValidationResponse>(TWITCH_VALIDATION_URL)
 
             const fetchedUser = await fetchUser(response.data.user_id)
             console.log(fetchedUser)
@@ -82,7 +80,7 @@ export const useTwitchAuth = defineStore('twitch-auth',()=>{
         try {
             const response = await axios.get<{data:TwitchUser[]}>(`${TWITCH_USER_URL}id=${user_id}`,{
                 headers:{
-                    'Authorization': `Bearer ${accessKey.value}`,
+                    'Authorization': `Bearer ${accessToken.value}`,
                     'Client-Id': CLIENT_ID
                 }
             })
@@ -97,7 +95,7 @@ export const useTwitchAuth = defineStore('twitch-auth',()=>{
 
     return {
         isAuthenticated,
-        getAccessKey,
+        getAccessToken,
         getUser,
         logout,
         getUserAuthUrl,

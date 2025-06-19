@@ -1,14 +1,11 @@
 <template >
-<div v-if="useChat().isConnected"
-v-for="message in useChat().getMessages()">
-    <span>{{ message }}</span>
-</div>
-<div v-else>
-    <h1>Loading</h1>
-</div>
+    <div v-for="message in useChat().Messages">
+        <span>{{ message.user_name }}</span>
+        <span>{{ message.text }}</span>
+    </div>
 </template>
 <script setup lang="ts">
-import { useChat } from '@/stores/Chat';
+import { useChat } from '@/stores/Chat'
 
 
 </script>
