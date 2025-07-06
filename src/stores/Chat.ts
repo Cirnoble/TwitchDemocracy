@@ -169,11 +169,11 @@ export const useChat = defineStore('chat',()=>{
         return submittedMessages
     }
     function deleteMessagesFromUser(id:string){
-        submittedMessages = submittedMessages.filter( msg =>{msg.user_id != id})
+        submittedMessages.value = submittedMessages.value.filter( msg =>{msg.user_id != id})
     }
 
     function deleteMessage(id:string){
-        submittedMessages = submittedMessages.filter( msg =>{msg.message_id != id})
+        submittedMessages.value = submittedMessages.value.filter( msg =>{msg.message_id != id})
     }
 
     function getNextMessageId(){
