@@ -1,10 +1,12 @@
 @import './base.css';
-
+body{
+  background-color: black;
+}
 #app {
-  max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
   font-weight: normal;
+  min-width: 800px;
+  background-color:antiquewhite;
 }
 
 a,
@@ -24,12 +26,12 @@ a,
 @media (min-width: 1024px) {
   body {
     display: flex;
-    place-items: center;
+    min-width: 800px;
   }
 
-  #app {
+  /* #app {
     display: grid;
     grid-template-columns: 1fr 1fr;
     padding: 0 2rem;
-  }
+  } */
 }
